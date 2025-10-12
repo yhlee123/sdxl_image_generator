@@ -1,0 +1,56 @@
+{
+  "model": {
+    "model_id": "stabilityai/stable-diffusion-xl-base-1.0",
+    "vae_model": null,
+    "device": "mps",
+    "dtype": "float16"
+  },
+  "loras": {
+    "example_lora_1": {
+      "path": "./loras/your_lora_1.safetensors",
+      "weight": 1.0,
+      "enabled": false,
+      "description": "Description of this LoRA"
+    },
+    "example_lora_2": {
+      "path": "./loras/your_lora_2.safetensors",
+      "weight": 0.8,
+      "enabled": false,
+      "description": "Another LoRA example"
+    }
+  },
+  "generation_defaults": {
+    "width": 1024,
+    "height": 1024,
+    "num_inference_steps": 30,
+    "guidance_scale": 7.5,
+    "negative_prompt": "low quality, blurry, watermark",
+    "lora_scale": 1.0
+  },
+  "presets": {
+    "quick": {
+      "width": 512,
+      "height": 512,
+      "num_inference_steps": 20,
+      "guidance_scale": 7.0
+    },
+    "quality": {
+      "width": 1024,
+      "height": 1024,
+      "num_inference_steps": 50,
+      "guidance_scale": 8.0
+    },
+    "portrait": {
+      "width": 768,
+      "height": 1024,
+      "num_inference_steps": 30,
+      "guidance_scale": 7.5
+    },
+    "landscape": {
+      "width": 1024,
+      "height": 768,
+      "num_inference_steps": 30,
+      "guidance_scale": 7.5
+    }
+  }
+}

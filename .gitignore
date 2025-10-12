@@ -1,0 +1,64 @@
+# Python
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Generated images
+outputs/
+*.png
+*.jpg
+*.jpeg
+
+# Model files (large)
+models/*.safetensors
+models/*.ckpt
+models/*.pth
+
+# LoRA files (large, download from Civitai)
+loras/*.safetensors
+loras/*.pt
+
+# Huggingface cache (optional)
+# .cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Configs (keep example, ignore custom configs)
+configs/*
+!configs/example_config.json
