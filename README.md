@@ -1,29 +1,55 @@
-# SDXL Image Generator with LoRA Support
+# SDXL Image & Video Generator with LoRA Support
 
-A general-purpose tool for generating images using Stable Diffusion XL (SDXL) with support for LoRA (Low-Rank Adaptation) models from Civitai and other sources.
+A general-purpose tool for generating images and videos using Stable Diffusion XL (SDXL) and Stable Video Diffusion (SVD), with support for LoRA (Low-Rank Adaptation) models from Civitai and other sources.
 
 ## Features
 
+### Image Generation
 - Generate high-quality images using SDXL base model
 - Support for multiple LoRA models
 - Configurable generation parameters
 - Built-in presets for different use cases
 - Metadata embedding in generated images
+
+### Video Generation
+- Generate videos from images using Stable Video Diffusion
+- Complete image-to-video workflow
+- Adjustable motion and frame count
+- Support for 3-5 second clips (customizable)
+
+### Cloud GPU Support
+- **RunPod integration** for cloud GPU access
+- Deployment scripts for easy setup
+- Performance benchmarking tools
+- Cost tracking and management utilities
+
+### General
 - Easy-to-use command-line interface
 - Configuration file support for managing LoRAs
+- Local and cloud deployment options
 
 ## Project Structure
 
 ```
 sdxl_image_generator/
-├── generate.py              # Main generation script
+├── generate.py              # Main image generation script
 ├── generate_with_config.py  # Config-based generation script
+├── generate_video.py        # Video generation script
+├── workflow_img2vid.py      # Complete image-to-video workflow
 ├── requirements.txt         # Python dependencies
 ├── configs/                 # Configuration files
 │   └── example_config.json  # Example configuration
 ├── loras/                   # Store your LoRA files here
 ├── models/                  # Store model files here (optional)
-└── outputs/                 # Generated images saved here
+├── outputs/                 # Generated images and videos
+└── runpod/                  # RunPod cloud GPU integration
+    ├── README.md            # Complete RunPod setup guide
+    ├── runpod_config.json   # RunPod configuration
+    ├── connect.sh           # SSH connection script
+    ├── deploy.sh            # Deployment script
+    ├── sync_loras.sh        # LoRA sync script
+    ├── benchmark.py         # Performance benchmarking
+    └── cost_monitor.py      # Cost tracking utility
 ```
 
 ## Installation
@@ -145,6 +171,99 @@ python generate_with_config.py \
 | `--enable-lora` | Enable specific LoRA by name | [] |
 | `--num-images` | Number of images | 1 |
 | `--seed` | Random seed | None |
+
+## Video Generation
+
+### Basic Video Generation
+
+Generate a video from an existing image:
+
+```bash
+python generate_video.py \
+  --image ./outputs/your_image.png \
+  --num-frames 25 \
+  --fps 6 \
+  --device cuda
+```
+
+### Complete Image-to-Video Workflow
+
+Generate an image with SDXL + LoRA, then create a video:
+
+```bash
+python workflow_img2vid.py \
+  --prompt "portrait of a person, professional photography" \
+  --lora ./loras/your_lora.safetensors \
+  --num-frames 25 \
+  --fps 6 \
+  --device cuda
+```
+
+### Video Parameters
+
+- `--num-frames`: Number of frames (25 = ~4 seconds at 6fps)
+- `--fps`: Frames per second (6 recommended for SVD)
+- `--motion`: Motion amount (1-255, higher = more motion, default: 127)
+- `--device`: cuda for GPU, mps for Mac Metal, cpu for CPU
+
+## Cloud GPU with RunPod
+
+For faster generation with powerful GPUs, use RunPod cloud GPUs:
+
+### Quick Start
+
+1. **Setup RunPod Pod** (see `runpod/README.md` for details)
+   - Choose RTX 3090/4090 or better (24GB+ VRAM)
+   - Enable SSH access
+
+2. **Configure Connection**
+   ```bash
+   # Edit runpod/runpod_config.json with your pod details
+   # Your SSH key is already generated at ~/.ssh/runpod_key
+   ```
+
+3. **Deploy to RunPod**
+   ```bash
+   ./runpod/deploy.sh
+   ```
+
+4. **Connect and Generate**
+   ```bash
+   ./runpod/connect.sh
+   # Now on RunPod:
+   cd /workspace/sdxl_image_generator
+   source venv/bin/activate
+   python generate.py --prompt "test" --device cuda
+   ```
+
+### Cost Management
+
+Track and estimate RunPod costs:
+
+```bash
+# Start tracking
+python runpod/cost_monitor.py start --gpu "RTX 4090"
+
+# Estimate before running
+python runpod/cost_monitor.py estimate --gpu "RTX 4090" --images 10 --videos 3
+
+# End session
+python runpod/cost_monitor.py end
+
+# View summary
+python runpod/cost_monitor.py summary
+```
+
+### Performance Benchmarking
+
+Benchmark your RunPod instance:
+
+```bash
+# On RunPod
+python runpod/benchmark.py --test-all --device cuda
+```
+
+**For complete RunPod setup and usage, see [`runpod/README.md`](runpod/README.md)**
 
 ## Getting LoRAs from Civitai
 

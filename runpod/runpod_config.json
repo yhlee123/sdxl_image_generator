@@ -1,0 +1,29 @@
+{
+  "pod": {
+    "id": "3xnxt1r83asdbf",
+    "name": "honest_copper_flamingo",
+    "ssh_host": "213.181.111.2",
+    "ssh_port": 45425,
+    "ssh_user": "root",
+    "ssh_key_path": "~/.ssh/runpod_key"
+  },
+  "deployment": {
+    "remote_project_dir": "/workspace/sdxl_image_generator",
+    "venv_path": "/workspace/venv",
+    "models_dir": "/workspace/models",
+    "loras_dir": "/workspace/loras",
+    "outputs_dir": "/workspace/outputs"
+  },
+  "video_generation": {
+    "svd_model": "stabilityai/stable-video-diffusion-img2vid-xt",
+    "default_fps": 6,
+    "default_frames": 25,
+    "motion_bucket_id": 127,
+    "noise_aug_strength": 0.02
+  },
+  "hardware": {
+    "device": "cuda",
+    "dtype": "float16",
+    "min_vram_gb": 24
+  }
+}
