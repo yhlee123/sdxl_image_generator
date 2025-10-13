@@ -48,19 +48,23 @@ class SDXLGenerator:
         print(f"Loading model: {model_id}")
         print(f"Device: {device}, dtype: {dtype}")
 
-        # Load VAE if specified
-        vae = None
+        # Load the pipeline
         if vae_model:
+            # Load VAE if specified
             print(f"Loading VAE: {vae_model}")
             vae = AutoencoderKL.from_pretrained(vae_model, torch_dtype=self.dtype)
-
-        # Load the pipeline
-        self.pipe = StableDiffusionXLPipeline.from_pretrained(
-            model_id,
-            vae=vae,
-            torch_dtype=self.dtype,
-            use_safetensors=True,
-        )
+            self.pipe = StableDiffusionXLPipeline.from_pretrained(
+                model_id,
+                vae=vae,
+                torch_dtype=self.dtype,
+                use_safetensors=True,
+            )
+        else:
+            self.pipe = StableDiffusionXLPipeline.from_pretrained(
+                model_id,
+                torch_dtype=self.dtype,
+                use_safetensors=True,
+            )
 
         # Move to device
         if device == "mps":

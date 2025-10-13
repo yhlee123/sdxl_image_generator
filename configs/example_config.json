@@ -3,20 +3,38 @@
     "model_id": "stabilityai/stable-diffusion-xl-base-1.0",
     "vae_model": null,
     "device": "mps",
-    "dtype": "float16"
+    "dtype": "float32"
   },
   "loras": {
-    "example_lora_1": {
-      "path": "./loras/your_lora_1.safetensors",
-      "weight": 1.0,
-      "enabled": false,
-      "description": "Description of this LoRA"
-    },
-    "example_lora_2": {
-      "path": "./loras/your_lora_2.safetensors",
+    "athlete_uniform": {
+      "path": "./loras/Athlete_uniform.safetensors",
       "weight": 0.8,
       "enabled": false,
-      "description": "Another LoRA example"
+      "description": "Athlete uniform style LoRA"
+    },
+    "bikinipull": {
+      "path": "./loras/bikinipull.safetensors",
+      "weight": 0.8,
+      "enabled": false,
+      "description": "Bikini pull pose LoRA"
+    },
+    "mardi_gras": {
+      "path": "./loras/Mardi_Gras_Women-000006.safetensors",
+      "weight": 0.8,
+      "enabled": false,
+      "description": "Mardi Gras women style LoRA"
+    },
+    "missionary": {
+      "path": "./loras/MissionaryVaginal-v1-SDXL.safetensors",
+      "weight": 0.8,
+      "enabled": true,
+      "description": "Missionary pose LoRA (SDXL compatible)"
+    },
+    "mix4": {
+      "path": "./loras/mix4.safetensors",
+      "weight": 0.8,
+      "enabled": false,
+      "description": "Mix4 style LoRA"
     }
   },
   "generation_defaults": {
