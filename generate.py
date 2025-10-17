@@ -93,7 +93,9 @@ class SDXLGenerator:
             print(f"Warning: LoRA file not found: {lora_path}")
             return
 
+        # Sanitize adapter name - replace invalid characters
         lora_name = adapter_name or Path(lora_path).stem
+        lora_name = lora_name.replace(".", "_").replace(" ", "_")
         print(f"Loading LoRA: {lora_name} with weight {weight}")
 
         try:
